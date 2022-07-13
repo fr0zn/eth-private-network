@@ -33,7 +33,7 @@ docker run -it --rm  -v `pwd`/node:/root/.ethereum ethereum/client-go account ne
 - Copy the password under `node/password.txt`
 
 ```
-echo "password" > `pwd`/config/password.txt
+echo "password" > `pwd`/node/password.txt
 ```
 
 - Generate genesis config
