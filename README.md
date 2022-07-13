@@ -13,7 +13,7 @@ New block creates every 5 seconds.
 You should have installed Docker and Docker Compose in your machine.
 
 ```
-git clone https://github.com/a1brz/eth-private-network.git
+git clone https://github.com/fr0zn/eth-private-network.git
 cd eth-private-network
 
 git clone --branch fix/tracer https://github.com/fr0zn/blockscout explorer
@@ -33,7 +33,7 @@ docker run -it --rm  -v `pwd`/node:/root/.ethereum ethereum/client-go account ne
 - Copy the password under `node/password.txt`
 
 ```
-echo "password" > `pwd`/config/password.txt
+echo "password" > `pwd`/node/password.txt
 ```
 
 - Generate genesis config
