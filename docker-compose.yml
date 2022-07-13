@@ -34,9 +34,9 @@ services:
       --syncmode full
       --bootnodes enode://${BOOTNODE_ID}@172.2.0.111:30301
       --networkid ${NETWORK_ID}
-      --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi "eth,web3,net,debug,db,txpool"
+      --http --http.addr 0.0.0.0 --http.corsdomain "*" --http.api "eth,web3,net,debug,db,txpool"
       --ethstats node:${NETSTATS_SECRET}@netstats:3000
-      --rpcvhosts=*
+      --http.vhosts=*
     networks:
       - research
   node-miner-1:
@@ -52,11 +52,12 @@ services:
       --syncmode full
       --bootnodes enode://${BOOTNODE_ID}@172.2.0.111:30301
       --networkid ${NETWORK_ID}
-      --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi "eth,web3,net,admin,db,miner"
+      --http --http.addr 0.0.0.0 --http.corsdomain "*" --http.api "eth,web3,net,admin,db,miner"
       --mine --miner.etherbase ${ACCOUNT_1} --miner.gasprice 0
       --unlock ${ACCOUNT_1} --password password.txt
+      --allow-insecure-unlock
       --ethstats node-miner-1:${NETSTATS_SECRET}@netstats:3000
-      --rpcvhosts=*
+      --http.vhosts=*
     networks:
       - research
   node-miner-2:
@@ -72,44 +73,45 @@ services:
       --syncmode full
       --bootnodes enode://${BOOTNODE_ID}@172.2.0.111:30301
       --networkid ${NETWORK_ID}
-      --rpc --rpcaddr 0.0.0.0 --rpccorsdomain "*" --rpcapi "eth,web3,net,admin,db,miner"
+      --http --http.addr 0.0.0.0 --http.corsdomain "*" --http.api "eth,web3,net,admin,db,miner"
       --mine --miner.etherbase ${ACCOUNT_2} --miner.gasprice 0
       --unlock ${ACCOUNT_2} --password password.txt
+      --allow-insecure-unlock
       --ethstats node-miner-2:${NETSTATS_SECRET}@netstats:3000
-      --rpcvhosts=*
+      --http.vhosts=*
     networks:
       - research
 
-  node-swarm-1:
-    depends_on:
-      - bootnode
-    ports:
-      - 8500:8500
-    command: swarm
-      --bootnodes enode://${BOOTNODE_ID}@172.2.0.111:30301
-      --bzzapi 0.0.0.0 --corsdomain "*" --httpaddr 0.0.0.0
-      --bzzaccount ${ACCOUNT_1} --password password.txt
-      --bzznetworkid ${NETWORK_ID}
-    build:
-      context: node
-    container_name: node-swarm-1
-    networks:
-      - research
-  node-swarm-2:
-    depends_on:
-      - bootnode
-    ports:
-      - 8501:8500
-    command: swarm
-      --bootnodes enode://${BOOTNODE_ID}@172.2.0.111:30301
-      --bzzapi 0.0.0.0 --corsdomain "*" --httpaddr 0.0.0.0
-      --bzzaccount ${ACCOUNT_2} --password password.txt
-      --bzznetworkid ${NETWORK_ID}
-    build:
-      context: node
-    container_name: node-swarm-2
-    networks:
-      - research
+  #node-swarm-1:
+  #  depends_on:
+  #    - bootnode
+  #  ports:
+  #    - 8500:8500
+  #  command: swarm
+  #    --bootnodes enode://${BOOTNODE_ID}@172.2.0.111:30301
+  #    --bzzapi 0.0.0.0 --corsdomain "*" --httpaddr 0.0.0.0
+  #    --bzzaccount ${ACCOUNT_1} --password password.txt
+  #    --bzznetworkid ${NETWORK_ID}
+  #  build:
+  #    context: node
+  #  container_name: node-swarm-1
+  #  networks:
+  #    - research
+  #node-swarm-2:
+  #  depends_on:
+  #    - bootnode
+  #  ports:
+  #    - 8501:8500
+  #  command: swarm
+  #    --bootnodes enode://${BOOTNODE_ID}@172.2.0.111:30301
+  #    --bzzapi 0.0.0.0 --corsdomain "*" --httpaddr 0.0.0.0
+  #    --bzzaccount ${ACCOUNT_2} --password password.txt
+  #    --bzznetworkid ${NETWORK_ID}
+  #  build:
+  #    context: node
+  #  container_name: node-swarm-2
+  #  networks:
+  #    - research
 
   faucet:
     image: chainflag/eth-faucet:1.1.0

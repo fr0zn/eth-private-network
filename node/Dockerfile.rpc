@@ -1,4 +1,4 @@
-FROM ethereum/client-go:alltools-v1.8.20
+FROM ethereum/client-go:alltools-stable
 
 COPY genesis.json .
 RUN geth init genesis.json
