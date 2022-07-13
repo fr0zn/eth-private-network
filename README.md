@@ -13,7 +13,7 @@ New block creates every 5 seconds.
 You should have installed Docker and Docker Compose in your machine.
 
 ```
-git clone https://github.com/a1brz/eth-private-network.git
+git clone https://github.com/fr0zn/eth-private-network.git
 cd eth-private-network
 
 git clone --branch fix/tracer https://github.com/fr0zn/blockscout explorer
