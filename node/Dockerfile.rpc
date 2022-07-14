@@ -1,11 +1,19 @@
 FROM ethereum/client-go:alltools-stable
 
+RUN mkdir /data
+WORKDIR /data
+
 COPY genesis.json .
-RUN geth init genesis.json
+RUN geth init --datadir /data genesis.json
+
+COPY static-nodes.json .
+
+COPY node.key .
 
 # geth
 EXPOSE 8545
 EXPOSE 30303
+EXPOSE 30303/udp
 
 # bootnode
 EXPOSE 30301/udp

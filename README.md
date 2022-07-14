@@ -36,6 +36,31 @@ docker run -it --rm  -v `pwd`/node:/root/.ethereum ethereum/client-go account ne
 echo "password" > `pwd`/node/password.txt
 ```
 
+(optional)
+
+- Generate 3 bootnode keys, one for each miner and the rpc node:
+
+```
+docker run -it --rm  -v `pwd`/node:/node ethereum/client-go:alltools-stable bootnode -genkey /node/node.key -writeaddress
+docker run -it --rm  -v `pwd`/node:/node ethereum/client-go:alltools-stable bootnode -genkey /node/miner1.key -writeaddress
+docker run -it --rm  -v `pwd`/node:/node ethereum/client-go:alltools-stable bootnode -genkey /node/miner2.key -writeaddress
+```
+
+IPS:
+
+```
+node: 172.2.0.110
+miner1: 172.2.0.111
+miner2: 172.2.0.112
+```
+
+Use the printed enode address on each command on the `node/static-nodes.json`
+
+---
+
+(continue)
+
+
 - Generate genesis config
 
 ```

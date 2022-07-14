@@ -1,9 +1,19 @@
 FROM ethereum/client-go:alltools-stable
 
-COPY keystore /root/.ethereum/keystore
+RUN mkdir /data
+WORKDIR /data
+
 COPY genesis.json .
+RUN geth init --datadir /data genesis.json
+
+COPY keystore keystore
 COPY password.txt .
-RUN geth init genesis.json
+
+COPY static-nodes.json .
+
+COPY miner1.key .
+COPY miner2.key .
+
 
 # geth
 EXPOSE 8545
